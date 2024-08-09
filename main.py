@@ -1,29 +1,57 @@
-print('======SOMAR NOTAS======\n')
-print('1 - Adicionar notas.')
-print('2 - Sair do programa.')
+#incluir biblioteca
+import os
 
-opcao = int(input('Informe a opção desejada: '))
+#lista
+notas = []
 
-match opcao:
-    case 1:
-        # quantidade de notas digitadas pelo usuario
-        quantidade_notas = int(input("Digite a quantidade de notas: "))
-        # lista vazia para armazenar as notas
-        notas = []
-        # notas do usuario
-        for i in range(quantidade_notas):
-            nota = float(input(f"Digite a nota {i+1}: "))
-            notas.append(nota)
+#limpar console
+os.system('cls')
 
-        # media das notas do usuario
-        media = sum(notas) / quantidade_notas
+#loop
+while True:
+    print('======SOMAR NOTAS======\n')
+    print('1 - Inserir notas.')
+    print('2 - Calcular média das notas.')
+    print('3 - Sair do programa.')
 
-        # exibe o resultado
-        print(f"A média das notas é: {media:.2f}")
-    case 2:
-        #encerrar programa
-        print('Programa encerrado. Obrigada!')
-    case _:
-        #quando o usuario digitar outro numero que nao esta na lista
-        print('Opcao não encontrada!')
+    #usuario indica a opcao desejada
+    opcao = input('Opcao desejada: ')
 
+    #limpar console
+    os.system('cls')
+
+    #verifica opcao desejada
+    match opcao:
+        case '1':
+            #usuario informa a nova nota
+            nova_nota = str(input('Informe nova nota de 0 a 10: ')).replace(',','.')
+
+            #insere a nova nota ou retorna erro
+            try:
+                nova_nota = float(nova_nota)
+
+                #verifica se a nota é maior que 0 ou menor que 10
+                if nova_nota >= 0 and nova_nota <= 10:
+                    notas.append(nova_nota)
+                    print(f'Nota {nova_nota} inserida com sucesso.')
+                else:
+                    print('Nota inválida!')
+            except:
+                print('Não foi possível inserir a nova nota.')
+            finally:
+                continue
+        case '2':
+            #calcula a media ou retorna erro
+            try:
+                media = sum(notas) / len(notas)
+                print(f'A  média do aluno é {media:.2f}.')
+            except:
+                print('Não foi possível calcular a média.')
+            finally:
+                continue
+        case '3':
+            print('Programa encerrado.')
+            break
+        case _:
+            print('Opção inválida!')
+            continue
